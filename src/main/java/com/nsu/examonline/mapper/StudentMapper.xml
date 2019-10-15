@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace属性:表示命名空间,用于关联操作Mappper接口-->
+<mapper namespace="com.nsu.examonline.mapper.StudentMapper">
+    <resultMap id="studentmap" type="Student">
+        <id property="stu_id" column="stu_id"/>
+        <result   property="stu_name" column="stu_name"/>
+        <result property="password" column="password"/>
+       <result   property="stu_sex" column="stu_sex"/>
+    <!--<result   property="Age" column="Age"/>-->
+    <!--<result   property="state" column="state"/>-->
+    </resultMap>
+    <!--声明标签,用与和接口中的方法映射-->
+
+    <!--在配置文件中写出需要执行的sql语句,通过名字来查询-->
+    <select id="select" resultMap="studentmap">
+        select stu_id,stu_name from  students
+    </select>
+
+    <select id="selectByname" resultMap="studentmap">
+        select stu_name,password  from  students  where  stu_name=#{name}  limit 1
+    </select>
+    <insert id="insert" parameterType="Student" keyProperty="stu_id" useGeneratedKeys="true">
+        <!--当操作中要从对象参数中获取特征值,必须通过属性名的方式 #{propName}
+        如果要给Mapper添加返回值, 它表示该sql影响的行数
+        keyProperty : 指定实体类中的属性,该属性映射为数据表中的id字段,作为自动增长的获取条件之一
+        useGeneratedKeys: 使用自动增长策略,传入的字段列表就可以不带id: #{uid} , 其对象在执行完后也能获取id值
+        insert into Users(username,pwd,state) values(#{username},#{pwd},1)  主动添加id,数据库中会采用该值作为id
+         #{} : 表示能够预编译成功的数据,varchar就会自己带''
+        ${} :  表示需要注入的字符串值自身, 会导致注入,一般sql不用(模糊查询)
+        -->
+        insert into students(stu_name,password) values(#{stu_name},#{password})
+    </insert>
+
+    <update id="update" parameterType="Student">
+        update students  set stu_name=#{stu_name},password=#{password} where stu_id=#{stu_id}
+    </update>
+
+    <delete id="deleteStudent" parameterType="Integer">
+        delete from students where stu_id=#{stu_id}
+    </delete>
+
+
+</mapper>

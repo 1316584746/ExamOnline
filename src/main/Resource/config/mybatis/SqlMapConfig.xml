@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!--使用了Spring  , 大部分工作都被Spring接管了-->
+<configuration>
+    <!--配置文件-->
+    <properties  resource="properties/db.properties"></properties>
+    <!--设置控制台日志，显示sql语句-->
+    <settings>
+
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <!--设置pojo包中的实体类自动解析别名-->
+    <typeAliases>
+        <package name="com.nsu.examonline.pojo"/>
+    </typeAliases>
+ <!--环境配置 配置和数据库的连接行为-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${druid.driverClassName}" />
+                <property name="url" value="${druid.url}" />
+                <property name="username" value="${druid.username}" />
+                <property name="password" value="${druid.password}" />
+            </dataSource>
+
+        </environment>
+    </environments>
+ 
+     <mappers>
+         <package name="com.nsu.examonline.mapper"></package>
+     </mappers>
+     
+</configuration>

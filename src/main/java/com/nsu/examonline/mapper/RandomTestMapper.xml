@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace属性:表示命名空间,用于关联操作Mappper接口-->
+    <mapper namespace="com.nsu.examonline.mapper.RandomTestMapper">
+
+    <resultMap id="Randomtest" type="RandomTest" >
+    <id property="Type_id" column="Type_id"/>
+    <result   property="Subject_id" column="Subject_id"/>
+    <result property="Test_score" column="Test_score"/>
+    <result   property="Test_answer" column="Test_answer"/>
+    <result   property="Test_question" column="Tset_question"/>
+    <result   property="Unit_id" column="Unit_id"/>
+        <result   property="state" column="state"/>
+        <result   property="stu_id" column="stu_id"/>
+    </resultMap>
+
+    <insert id="save" parameterType="RandomTest" keyProperty="Type_id" useGeneratedKeys="true" >
+    <!--向数据表中插入试题-->
+    insert into randomtest(Subject_id,Type_id,Test_questiont_que,Test_answer, state,score,stu_id )
+    values (Subject_id=#{test_sub},Subject_id=#{test_num},Test_question=#{test_que},Test_answer=#{test_ans},state=#{state},Test_score=#{score})
+    </insert>
+
+
+</mapper>

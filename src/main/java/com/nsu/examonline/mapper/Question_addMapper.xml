@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace属性:表示命名空间,用于关联操作Mappper接口-->
+<mapper namespace="com.nsu.examonline.mapper.Question_addMapper">
+    <resultMap id="Question_addmap" type="Question_add">
+        <id property="test_num" column="test_num"/>
+        <result   property="test_sub" column="test_sub"/>
+        <result property="test_que" column="test_que"/>
+        <result   property="test_ans" column="test_ans"/>
+        <result   property="state" column="state"/>
+        <result   property="score" column="score"/>
+        <result  property="test_xuan" column="test_xuan"/>
+        <!--<result   property="state" column="state"/>-->
+    </resultMap>
+  <!--执行的sql语句-->
+<insert id="insert" parameterType="Question_add" keyProperty="tset_num" useGeneratedKeys="true" >
+ <!--向数据表中插入试题-->
+    insert into randomtest(test_sub,test_num,test_que,test_ans, state,score,test_xaun)
+           values (#{test_sub},#{test_num},#{test_que},#{test_ans},#{state},#{score},#{test_xuan})
+
+
+</insert>
+
+<select id="select" resultMap="Question_addmap" parameterType="Question_add">
+        select  * from question_add   where test_sub=#{test_sub}
+         order by  rand() LIMIT 10;
+    </select>
+
+        <!--查询出题库中的所有题,然后根据科目的名称随机选择10个题-->
+<select id="list" resultMap="Question_addmap">
+        select test_num,test_sub,test_que,test_ans,state,score,test_xuan  from question_add
+
+    </select>
+
+
+  <!--保存试题-->
+    <insert id="save"  parameterType="Question_add" >
+        insert into  question_add (test_sub,test_num,test_que,test_ans, state,score,test_xaun)
+          values (#test_sub},#{test_num},#{test_que},#{test_ans},#{state},#{score},#{test_xuan});
+    </insert>
+
+
+
+
+</mapper>
